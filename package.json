@@ -1,0 +1,22 @@
+{
+  "name": "google-form-scrapper",
+  "version": "1.0.0",
+  "description": "Fetches all questions from a Google Form",
+  "main": "app.js",
+  "scripts": {
+    "test": "hello"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khetrapalaksh4y/google-form-scrapper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khetrapalaksh4y/google-form-scrapper/issues"
+  },
+  "homepage": "https://github.com/khetrapalaksh4y/google-form-scrapper#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
