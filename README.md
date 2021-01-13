@@ -17,5 +17,5 @@ http://localhost:5500/scrape/<google_form_id>
 Google Form ID in a Google Form URL is in the end:
 
 ```
-https://docs.google.com/form/d/<google_form_id>
+https://docs.google.com/forms/d/e/<form_id>/viewanalytics
 ```

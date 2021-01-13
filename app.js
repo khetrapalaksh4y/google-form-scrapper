@@ -1,3 +1,15 @@
+/*
+  A simple script to scrape all the questions from a Google Form.
+  Created:
+    By -> https://github.com/khetrapalaksh4y
+    On -> 22 April, 2017
+
+  Updated:
+    By -> https://github.com/iamtalhaasghar
+    On -> 5 Jan 2020
+*/
+
+
 const request = require('request');
 const express = require('express');
 const q = require('q');
@@ -27,7 +39,11 @@ app.get('/scrape/:form_id', (request, response) => {
 
 function scrapeGoogleFormForQuestions(form_id) {
     const promise = q.defer();
-    request("https://docs.google.com/forms/d/" + form_id, (error, response, body) => {
+    /*
+      GOOGLE FORMS' LINKS NOW HAVE FOLLOWING URL STRUCTURE:
+      https://docs.google.com/forms/d/e/<form_id>/viewanalytics
+    */
+    request("https://docs.google.com/forms/d/e/" + form_id + "/viewanalytics", (error, response, body) => {
         if (error) {
             promise.reject("Something went wrong");
         }
@@ -35,7 +51,7 @@ function scrapeGoogleFormForQuestions(form_id) {
             var questions = extractQuestionsFromBody(body);
             if(questions)
             {
-                promise.resolve(questions);  
+                promise.resolve(questions);
             }
             else
             {
@@ -49,7 +65,11 @@ function scrapeGoogleFormForQuestions(form_id) {
 
 function extractQuestionsFromBody(htmlString) {
     var html = cheerio.load(htmlString);
-    var questionSelectors = html(".freebirdFormviewerViewItemsItemItemTitle");
+    /*
+      The css class of <span> containing google form question has changed from
+      "freebirdFormviewerViewItemsItemItemTitle" to "freebirdAnalyticsViewQuestionTitle"
+    */
+    var questionSelectors = html(".freebirdAnalyticsViewQuestionTitle");
     if(!questionSelectors.length)
     {
         return false;
